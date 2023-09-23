@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href= "styles.css" rel="stylesheet" type="text/css">
+    <link href= "json.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>IT Smarts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+</head>
+<body id="markers-on-the-map">  
+   
+
+<a href="javascript:void(0);" class="menu_icon"><img src="iconn.png" alt="Image" width="20px" height="18px" > </a>
+<div id="menu" style="overflow: auto;">
+  <ul>
+    <li><a>Rutas encontradas:<span id="find_routes"></span></a></li>
+    <button class="carousel-control circle-button-div" onclick="move_page('prev')" type="button" >
+        <div class="circle-button">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </div>
+      </button>
+      <button class="carousel-control circle-button-div" onclick="move_page('next')" type="button" data-slide="next">
+        <div class="circle-button">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </div>
+      </button>
+    <li id="instructions"></li>
+
+  </ul>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>"></scipt>
+  <script>
+  </script>
+  <script type="text/javascript" src='demo.js'></script>      
+  <div class="wrapper">
+     <div class="section">
+      <div class="top_navbar">
+    <div class="hamburger" style="color: #a2ecff;">
+      <a href="#">
+        <i class="fas fa-bars"></i>
+      </a>
+    </div>
+      <span><input type="search" onchange="search_city()"  id="query" name="q" placeholder="Buscar...">
+        <select onchange="" id="datalist_results">
+        <option value="Ninguno">Selecciona</option>
+        </select>
+        <select  id="datalist_place">
+        <option value="Ninguno">Destinación</option>
+        <option value="first_place">Lugar de partida</option>
+        <option value="second_place">Lugar de llegada</option>
+        </select>
+            <button type="button" onclick="onchange_search()">Ya!</button>
+  </div>
+
+  <div class="container">
+  <div class="vh-50">  
+  <div class="vw-50">
+      <div class="page-header">
+      </div>
+      <div id="map"></div>   
+  </div>
+  </div>
+  </div>
+</div>
+        <div class="sidebar" style="overflow: auto;">
+            <div class="profile">
+                <img src="logo.jpg">
+                <h3>IT SMARTS</h3>
+                <p>Servicios de TI y consultoría de TI</p>
+            </div>
+            <ul>
+                <li>
+                    <a>
+                      <span class="icon"><i class="fas fa-home"></i></span>
+                      <span class="item">Origen</span> <label>
+                        <input type="text" name="origen" minlength="3" id="first_place" class="input_search" value="21.118448,-101.687337" required>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">Destino</span>
+                          <input type="text" name="destino" minlength="3" id="second_place" class="input_search" value="23.206749477566127,-109.9723418621682"  required>
+                          <br>
+                          <button type="button6" class="button6"onclick="directions()">Enviar y generar ruta</button>   
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Vehículo </span>
+                        <br>
+                        <input type="radio" class="transportation" checked value="car" name="transportation" id=""><i class="fas fa-car" style="font-size:20px"></i>
+                        <input type="radio" class="transportation" value="truck" name="transportation" id=""><i class="fas fa-truck" style="font-size:20px"></i>
+                        <input type="radio" class="transportation" value="pedestrian" name="transportation" id=""><i class="fas fa-walking" style="font-size:20px"></i>
+                        <input type="radio" class="transportation" value="bicycle" name="transportation" id=""><i class="fas fa-bicycle" style="font-size:20px"></i>
+                    </a>
+            
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <h4>Tiempo:</h4>
+                        <input type="radio" name="time_type" checked value="departureTime" id=""> <span class="item">Salida</span>
+                        <input type="radio" name="time_type" value="arrivalTime" id=""> <span class="item">Llegada</span>
+                        <input id="departure-time" class="form-control" type="datetime-local" required="required" >
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><i class="fas fa-exclamation"></i></span>
+                        <span class="item">Evitar</span>
+                        <div>
+                            <input type="checkbox" class="avoid" value="seasonalClosure" name="avoid" id="">
+                                <p>Clausura estacional</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="avoid" value="controlledAccessHighway" name="avoid" id="">
+                                <p>Autopista de acceso controlado</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="avoid" value="carShuttleTrain" name="avoid" id="">
+                                <p>Cruce con tren</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="avoid" value="dirtRoad" name="avoid" id="">
+                                <p>Camino de tierra</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="avoid" value="uTurns" name="avoid" id="">
+                                <p>Vuelta en U</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="avoid" value="difficultTurns" name="avoid" id="">
+                                <p>Carretera de cobro</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="avoid" value="ferry"  class="avoid" id="">
+                                <p>Ferry</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="avoid" value="tunnel" class="avoid" id="">
+                                <p>Túnel</p>
+                            </input>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="avoid" value="tollRoad" class="avoid" id="">
+                                <p>Giros complicados</p>
+                            </input>
+                        </div>
+                    </a>
+             </li>
+            </ul>
+        </div>
+        
+    </div>
+    <script src="jsss.js"></script>
+    <script src="decode.js"></script>
+    <script src="luxon.js"></script>
+    
+<div class="topnav">
+    
+    </div>
+  </div>
+  
+</div>
+</body>
+</html>
